@@ -1,3 +1,6 @@
+[![Lang](https://img.shields.io/badge/lang-en-blue.svg)](./README.md)
+[![Lang](https://img.shields.io/badge/lang-fr-lightgrey.svg)](./README.fr.md)
+
 # 🧠 MutualMap
 
 **Visualize your Discord friend network as an interactive graph – locally, or across multiple datasets.**
@@ -33,7 +36,7 @@ No need for servers, bots or hosting — everything is done locally in your brow
 5. Click on any **DM with a friend**
 6. In the requests that appear, look for one named `messages?limit=50`
 7. Click on it, then go to the **Headers** tab
-8. Scroll down to find a key called `authorization` — this is your **user token**
+8. Scroll down to find a key called `Authorization` — this is your **user token**
 9. Copy it and paste it somewhere safe
 
 > 🔴 Never share this token. Treat it like a password.
@@ -49,7 +52,7 @@ No need for servers, bots or hosting — everything is done locally in your brow
    ```
    with your actual token:
    ```js
-   const token = "mfa.XXXXXXXXXXXXXXX";
+   const token = "XXXXXXXXXXXXXXXXX";
    ```
 4. Press `Enter` to run it
 
