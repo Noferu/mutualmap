@@ -22,7 +22,7 @@ No need for servers, bots or hosting — everything is done locally in your brow
 
 ### Step 1 – Export your Discord friends
 
-> ⚠️ This step uses your Discord user token. It’s safe if used privately and only for your own account.
+> ⚠️ This step uses your Discord user token. It's practically absolutely safe (see disclaimer below) if used privately and only for your own account.
 
 #### 🔐 How to get your Discord token:
 
@@ -37,6 +37,7 @@ No need for servers, bots or hosting — everything is done locally in your brow
 9. Copy it and paste it somewhere safe
 
 > 🔴 Never share this token. Treat it like a password.
+> If you're worried about a leak, changing your password will automatically change the token.
 
 #### 🧠 Use the script:
 
@@ -55,7 +56,7 @@ No need for servers, bots or hosting — everything is done locally in your brow
 After a short wait, a file named `friends_data.json` will be automatically downloaded.
 
 > ⏱️ A 1-second delay between each friend is added to reduce API spam and stay safe.  
-> You can adjust the delay in the script (look for `setTimeout`).  
+> You can adjust the delay in the script (look for `setTimeout`), but if you don't understand, leave the default value.
 > With ~60 friends, the export should take **a bit more than one minute**.
 
 ---
@@ -64,8 +65,6 @@ After a short wait, a file named `friends_data.json` will be automatically downl
 
 - If your file is named `friends_data.json` and placed **in the root folder**, it will be **used automatically** by the Python script.
 - If it has a different name, or if you place it in the `datas/` folder, the script will ask you to select the file manually.
-- ⚠️ If you run the script again, it will **overwrite any previous HTML file without warning**.  
-  ➤ Rename or move your outputs as needed to avoid accidental overwrites.
 
 > You can repeat the export step for other accounts (alts, friends...) and rename each file like `friends_data_alice.json`, `friends_data_bob.json`, etc., and place them all in `datas/`.
 
@@ -82,7 +81,6 @@ After a short wait, a file named `friends_data.json` will be automatically downl
 pip install pyvis
 ```
 
-- This will also create the necessary `/lib/` folders if they don’t exist yet (for JavaScript and CSS assets).
 - If you see errors about `pyvis` not being found, make sure you added Python to your PATH.
 
 ---
@@ -97,7 +95,10 @@ python generate_graph.py
 
 - If `friends_data.json` is in the root, it will be used.
 - Otherwise, you’ll be prompted to choose your file.
+- This will also create the necessary `/lib/` folders if they don’t exist yet (for JavaScript and CSS assets).
 - The result is `discord_friends_network.html` in the root.
+- ⚠️ If you run the script again, it will **overwrite any previous HTML file without warning**.  
+  ➤ Rename or move your outputs as needed to avoid accidental overwrites.
 
 📂 This file can be opened in any browser. It includes avatars, tooltips, and a stats panel.
 
@@ -113,7 +114,8 @@ python build_mega_data.py
 python generate_mega_graph.py
 ```
 
-- The merging script will create `mega_data.json` in `/mega/`
+- The files that can perform these manipulations are in the `/mega` folder.
+- The merging script will create `mega_data.json`
 - The graph script will generate `mega_graph.html` with stats injected
 - 📌 Stats are shown in a toggleable panel on the graph
 
@@ -148,7 +150,7 @@ MutualMap/
 ├── stats_box.html            → Stats panel for single-user graphs
 ├── .gitignore                → Ignores folders like /html/, /lib/, /datas/*
 │
-├── datas/                    → Put your .json files here (folder is empty by default)
+├── datas/                    → Put your .json files here
 │
 ├── lib/                      → JS/CSS assets (auto-created if missing)
 │
@@ -160,7 +162,7 @@ MutualMap/
     └── lib/                       → JS/CSS for standalone access
 ```
 
-❗ The `/html/` folders are **not provided**. Output HTML files are generated dynamically by the scripts in corresponding folders.
+❗ The `/datas/` folder is **not provided**. Create it and drag the `.json` data files into it to use the mega graph scripts.
 
 ---
 
@@ -171,6 +173,8 @@ This project relies on your personal Discord **user token**, which gives access 
 - It **does not send messages**
 - It **does not interact with users or servers**
 - It includes a built-in **1-second delay between each API call** to avoid spamming and reduce risk
+- It is executed **within your own browser**, connected to your account
+- It only **accesses** not-so-sensitive data
 
 🔐 Your token must remain **strictly private**. Do **not** share it with anyone. Do **not** upload it to GitHub, Discord, or cloud drives. This tool is designed for **local and personal use only**.
 
@@ -180,11 +184,12 @@ This project relies on your personal Discord **user token**, which gives access 
 
 ## 💡 Credits & inspiration
 
-- Based on the original idea and foundation from [Escartem's fwendator](https://github.com/Escartem/fwendator) 💙  
+- Based on the original idea and foundation from [Escartem's fwendator](https://github.com/Escartem/fwendator)  
 - Improved with custom features: merging support, toggleable stat panels, visual styling, and file structure refactoring
 - Visualization powered by [PyVis](https://pyvis.readthedocs.io/) and [Vis.js](https://visjs.org/)
 - UI, logic and integration by the current maintainer
-- Built with 🧠 clarity and 🍵 good Moroccan tea
+- Built with 🧠 clarity and 🍵 good tea
+- Made by a friend, for friends 💙
 
 ---
 
