@@ -1,0 +1,109 @@
+<!-- ----------- STYLES FOR BUTTON & STATS PANEL ----------- -->
+<style>
+  /* Toggle button styling */
+  #toggle-stats-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: #222;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: "Segoe UI", sans-serif;
+    z-index: 10000;
+    box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    transition: background-color 0.2s;
+  }
+
+  /* Button hover effect */
+  #toggle-stats-btn:hover {
+    background-color: #333;
+  }
+
+  /* Stats panel container */
+  #stats-box {
+    position: absolute;
+    top: 60px;
+    left: 20px;
+    background-color: #111;
+    color: white;
+    font-family: "Segoe UI", sans-serif;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+    padding: 16px 20px;
+    max-width: 600px;
+    z-index: 9999;
+    line-height: 1.6;
+    display: none; /* Hidden by default */
+  }
+
+  /* Section title */
+  #stats-box h2 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    border-bottom: 1px solid #444;
+    padding-bottom: 6px;
+  }
+
+  /* List structure */
+  #stats-box ul {
+    padding-left: 18px;
+    margin: 0;
+    font-size: 14px;
+    list-style-type: none;
+  }
+
+  /* Icon for each list item */
+  #stats-box li::before {
+    content: "📌 ";
+    color: #8ab4f8;
+    margin-right: 6px;
+  }
+
+  /* Tooltip style for explanations */
+  #stats-box li[title] {
+    cursor: help;
+    text-decoration: none;
+  }
+</style>
+
+<!-- ----------- TOGGLE BUTTON & STATS CONTENT ----------- -->
+
+<!-- Button to toggle the visibility of the stats box -->
+<button id="toggle-stats-btn">📊 Show stats</button>
+
+<!-- Stats panel with dynamic placeholders -->
+<div id="stats-box">
+  <h2>📊 Mega Graph Statistics</h2>
+  <ul>
+    <li title="Total number of users in the graph. Each node represents a person."><b>Users (nodes):</b> {total_nodes}</li>
+    <li title="Total number of mutual connections. Each edge links two users."><b>Connections (edges):</b> {total_edges}</li>
+    <li title="Indicates how interconnected the graph is. 100% means everyone is linked."><b>Graph density:</b> {density}%</li>
+    <li title="Average number of connections per user. Higher = more connected."><b>Average degree:</b> {average_degree}</li>
+    <li title="The middle value of all degrees. Half have more, half have less."><b>Median degree:</b> {median_degree}</li>
+    <li title="Measures how much variation there is in the number of connections."><b>Degree std dev:</b> {std_degree}</li>
+    <li title="Number of users with no mutuals. Not shown in the graph."><b>Isolated users:</b> {isolated_users} ({isolated_ratio}%)</li>
+    <li title="Groups of users that are connected together."><b>Detected groups:</b> {connected_components}</li>
+    <li title="Number of groups with more than 10 users. Shows community structure."><b>Groups > 10 members:</b> {large_components_count}</li>
+    <li title="Average number of users per group."><b>Avg. group size:</b> {average_component_size}</li>
+    <li title="Size of the biggest connected group."><b>Largest group size:</b> {largest_cluster_size}</li>
+    <li title="Max number of hops to go from one user to another within the largest group."><b>Largest group diameter:</b> {largest_cluster_diameter}</li>
+    <li title="User with the most connections in the largest group."><b>Top user (largest group):</b> {top_cluster_user}</li>
+    <li title="Percent of users in the group directly connected to the top user."><b>Max local centrality:</b> {top_cluster_centrality}%</li>
+    <li title="Top 10 users with the highest number of connections in the graph."><b>Top 10 influencers:</b> {top_influencers}</li>
+  </ul>
+</div>
+
+<!-- ----------- TOGGLE LOGIC WITH JAVASCRIPT ----------- -->
+<script>
+  const toggleBtn = document.getElementById("toggle-stats-btn");
+  const statsBox = document.getElementById("stats-box");
+
+  toggleBtn.addEventListener("click", () => {
+    const isVisible = statsBox.style.display === "block";
+    statsBox.style.display = isVisible ? "none" : "block";
+    toggleBtn.textContent = isVisible ? "📊 Show stats" : "❌ Hide stats";
+  });
+</script>

@@ -1,0 +1,106 @@
+<!-- ----------- STYLES FOR BUTTON & STATS BOX ----------- -->
+<style>
+  /* Toggle button styling */
+  #toggle-stats-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: #222;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: "Segoe UI", sans-serif;
+    z-index: 10000;
+    box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    transition: background-color 0.2s;
+  }
+
+  /* Hover effect on the button */
+  #toggle-stats-btn:hover {
+    background-color: #333;
+  }
+
+  /* Stats panel container */
+  #stats-box {
+    position: absolute;
+    top: 60px;
+    left: 20px;
+    background-color: #111;
+    color: white;
+    font-family: "Segoe UI", sans-serif;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+    padding: 16px 20px;
+    max-width: 600px;
+    z-index: 9999;
+    line-height: 1.6;
+    display: none; /* Hidden initially */
+  }
+
+  /* Header styling */
+  #stats-box h2 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    border-bottom: 1px solid #444;
+    padding-bottom: 6px;
+  }
+
+  /* Stats list */
+  #stats-box ul {
+    padding-left: 18px;
+    margin: 0;
+    font-size: 14px;
+    list-style-type: none;
+  }
+
+  /* Bullet icons before list items */
+  #stats-box li::before {
+    content: "⭐ ";
+    color: #8ab4f8;
+    margin-right: 6px;
+  }
+
+  /* Tooltip effect on list items */
+  #stats-box li[title] {
+    cursor: help;
+    text-decoration: none;
+  }
+</style>
+
+<!-- ----------- TOGGLE BUTTON & STATS DISPLAY ----------- -->
+
+<!-- Button to show/hide the stats box -->
+<button id="toggle-stats-btn">📊 Show stats</button>
+
+<!-- Stats content with placeholders for dynamic insertion -->
+<div id="stats-box">
+  <h2>📊 Graph Statistics</h2>
+  <ul>
+    <li title="Total number of users displayed in the graph. Each node represents one user."><b>Users:</b> {total_nodes}</li>
+    <li title="Total number of visible connections between users. A connection means they have mutual friends."><b>Connections:</b> {total_edges}</li>
+    <li title="Percentage of actual connections versus all possible ones. Higher = denser graph."><b>Density:</b> {density}%</li>
+    <li title="Average number of connections per user. Indicates overall connectivity."><b>Average degree:</b> {average_degree}</li>
+    <li title="Number of users who are not connected to anyone else."><b>Isolated users:</b> {isolated_users}</li>
+    <li title="Percentage of isolated users relative to the whole graph."><b>Isolated ratio:</b> {isolated_ratio}%</li>
+    <li title="Number of distinct connected groups in the graph. Each group is separate."><b>Detected groups:</b> {connected_components}</li>
+    <li title="Average size of the connected groups. Reflects typical local network size."><b>Average group size:</b> {average_component_size}</li>
+    <li title="Number of users in the largest connected group. Represents the largest community."><b>Largest cluster:</b> {largest_cluster_size}</li>
+    <li title="Name of the most connected user in the largest group. Often the central node."><b>Main user:</b> {top_cluster_user}</li>
+    <li title="Percentage of users in the group directly connected to the main user."><b>Local centrality:</b> {top_cluster_centrality}%</li>
+    <li title="List of the top 3 users with the highest number of connections."><b>Top 3 influencers:</b> {top_influencers}</li>
+  </ul>
+</div>
+
+<!-- ----------- JAVASCRIPT TO TOGGLE VISIBILITY ----------- -->
+<script>
+  const toggleBtn = document.getElementById("toggle-stats-btn");
+  const statsBox = document.getElementById("stats-box");
+
+  toggleBtn.addEventListener("click", () => {
+    const isVisible = statsBox.style.display === "block";
+    statsBox.style.display = isVisible ? "none" : "block";
+    toggleBtn.textContent = isVisible ? "📊 Show stats" : "❌ Hide stats";
+  });
+</script>
