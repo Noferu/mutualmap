@@ -3,7 +3,6 @@ const token = "YOUR_DISCORD_TOKEN_HERE";
 
 /**
  * Authenticated fetch call with your token.
- * Used to call Discord's private API endpoints.
  */
 async function fetchWithAuth(url, token) {
   const response = await fetch(url, {
@@ -13,48 +12,46 @@ async function fetchWithAuth(url, token) {
 }
 
 /**
- * Fetches your own user info and your friend list with mutual connections.
- * Exports the data as a JSON file.
+ * Fetches only real friends (type === 1) with their mutuals.
  */
 async function getFriends(token) {
   console.log("📡 Connecting to Discord...");
 
-  // Get the current user's account info (you, the source)
+  // Get your own user info
   const me = await fetchWithAuth("https://discord.com/api/v9/users/@me", token);
 
-  // Initialize result with your user ID as the source
   const result = {
-    source: me.id, // just the ID of the person exporting this data
-    users: {}      // where friends will be stored
+    source: me.id,
+    users: {}
   };
 
   console.log("👤 Exporting as:", `${me.username}#${me.discriminator}`);
 
-  // Get your full friends list (one-way and mutual)
+  // Get relationships and filter only type === 1 (friends)
   const relationships = await fetchWithAuth("https://discord.com/api/v9/users/@me/relationships", token);
+  const friendsOnly = relationships.filter(rel => rel.type === 1); // Only real friends
 
-  for (const rel of relationships) {
+  for (const rel of friendsOnly) {
     const friend = rel.user;
 
-    // Get their relationships (used to determine mutuals)
+    // Try to fetch mutuals (optional step)
     const mutualIds = await fetchWithAuth(
       `https://discord.com/api/v9/users/${friend.id}/relationships`,
       token
-    ).then(res => res.map(u => u.id)).catch(() => []); // ignore errors
+    ).then(res => res.map(u => u.id)).catch(() => []);
 
-    // Store the user's data in the final object
     result.users[friend.id] = {
       name: `${friend.username}#${friend.discriminator}`,
       global_name: friend.global_name || "",
       avatar: friend.avatar || "",
-      mutual: mutualIds // list of user IDs that are mutual with this friend
+      mutual: mutualIds
     };
 
     console.log(`✅ Fetched: ${friend.username}`);
-    await new Promise(resolve => setTimeout(resolve, 1000)); // avoid rate limits
+    await new Promise(resolve => setTimeout(resolve, 1000)); // prevent rate limit
   }
 
-  // Convert data to JSON and trigger file download
+  // Trigger file download
   const blob = new Blob([JSON.stringify(result, null, 2)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
@@ -66,5 +63,5 @@ async function getFriends(token) {
   console.log("📁 Saved as: friends_data.json");
 }
 
-// Run the export process
+// Launch
 getFriends(token);
