@@ -45,7 +45,7 @@ Aucun serveur, bot ou hébergement n’est nécessaire — tout fonctionne local
 #### 🧠 Utiliser le script :
 
 1. Allez dans l’onglet **Console** des outils de développement
-2. Collez le contenu complet du fichier `getFriends.js`
+2. Collez le contenu complet du fichier [`getFriends.js`](getFriends.js)
 3. Remplacez cette ligne :
    ```js
    const token = "YOUR_DISCORD_TOKEN_HERE";
