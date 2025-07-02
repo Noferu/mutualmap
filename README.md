@@ -45,7 +45,7 @@ No need for servers, bots or hosting — everything is done locally in your brow
 #### 🧠 Use the script:
 
 1. Go to the **Console** tab in Developer Tools
-2. Paste the full content of `getFriends.js`
+2. Paste the full content of [`getFriends.js`](getFriends.js)
 3. Replace this line:
    ```js
    const token = "YOUR_DISCORD_TOKEN_HERE";
